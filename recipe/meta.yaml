@@ -8,8 +8,6 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/xbitinfo-{{ version }}.tar.gz
   sha256: 31024abfbf0e6853531dc6315a250ef2e4509a6d846cc44ddff5c80f12a58ae9
-  patches:
-    - install_julia.patch
 
 build:
   noarch: python
@@ -22,7 +20,6 @@ requirements:
     - pip
     - setuptools >=30.3.0
     - setuptools-scm
-    - setuptools_scm_git_archive
     - pyjulia >=0.5.7
     - julia >=1.6.0,<1.8.0
   run:
@@ -36,7 +33,7 @@ requirements:
     - matplotlib-base
     - cmcrameri
     # extras::prefect
-    - prefect >=1.0.0
+    - prefect >=1.0.0,<2.0
 
 test:
   imports:
