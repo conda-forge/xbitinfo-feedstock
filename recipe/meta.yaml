@@ -8,11 +8,13 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/xbitinfo-{{ version }}.tar.gz
   sha256: 31024abfbf0e6853531dc6315a250ef2e4509a6d846cc44ddff5c80f12a58ae9
+  patches:
+    - disable_debug.patch
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
