@@ -1,6 +1,6 @@
 {% set name = "xbitinfo" %}
-{% set version = "0.0.4.dev0" %}
-{% set commit = "a2e52325cbe21c615d722f8b2ac9845549ff92fd" %}
+{% set version = "0.0.4.dev1" %}
+{% set commit = "c917b4304e26a8cc69a9eabd2cc128287f8e7cd4" %}
 
 package:
   name: {{ name|lower }}
@@ -8,46 +8,61 @@ package:
 
 source:
   url: https://github.com/observingClouds/xbitinfo/archive/{{ commit }}.tar.gz
-  sha256: 7617e6baec70abf98bcebf000edd33e6da4390a14ced150877cfd7545f1e99a5
+  sha256: aaf152bd9b7a0472f688799b36699225ed093509f3b5afccefc871b62f02eb3b
 
 build:
-  noarch: python
-  script: SETUPTOOLS_SCM_PRETEND_VERSION={{ version }} {{ PYTHON }} -m pip install . -vv
   number: 0
-
-requirements:
-  host:
-    - python >=3.8
-    - pip
-    - setuptools >=30.3.0
-    - setuptools-scm
-    - pyjulia >=0.5.7
-    - julia >=1.6.0,<1.8.0
-  run:
-    - python >=3.8
-    - xarray
-    - pyjulia >=0.5.7
-    - julia >=1.6.0,<1.8.0
-    - tqdm
-    - numcodecs >=0.10.0
-    # extras::viz
-    - matplotlib-base
-    - cmcrameri
-    # extras::prefect
-    - prefect >=1.0.0,<2.0
-    # io
-    - netcdf4
-    - zarr
+  noarch: python
 
 test:
-  imports:
-    - xbitinfo
-  commands:
-    - pip check
   requires:
-    - pip
     - pooch
     - netcdf4
+
+outputs:
+  - name: xbitinfo
+    script: build_base.sh
+    requirements:
+      host:
+        - python >=3.8
+        - pip
+        - setuptools >=30.3.0
+        - setuptools-scm
+      run:
+        - python >=3.8
+        - xarray
+        - tqdm
+        - numcodecs >=0.10.0
+        # extras::viz
+        - matplotlib-base
+        - cmcrameri
+        # extras::prefect
+        - prefect >=1.0.0,<2.0
+        # io
+        - netcdf4
+        - zarr
+    test:
+      imports:
+        - xbitinfo
+      commands:
+        - pip check
+      requires:
+        - pip
+        - pooch
+        - netcdf4
+
+  - name: xbitinfo-julia
+    build:
+      noarch: generic
+    requirements:
+      run:
+        - {{ pin_subpackage('xbitinfo', max_pin="x.x.x") }}
+        - pyjulia >=0.5.7
+        - julia >=1.6.0,<1.8.0
+    test:
+      requires:
+        - pooch
+        - netcdf4
 
 about:
   home: https://github.com/observingClouds/xbitinfo
