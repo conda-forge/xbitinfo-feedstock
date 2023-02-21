@@ -48,8 +48,6 @@ outputs:
         - pip check
       requires:
         - pip
-        - pooch
-        - netcdf4
 
   - name: xbitinfo-julia
     build:
@@ -59,10 +57,6 @@ outputs:
         - {{ pin_subpackage('xbitinfo', max_pin="x.x.x") }}
         - pyjulia >=0.5.7
         - julia >=1.6.0,<1.8.0
-    test:
-      requires:
-        - pooch
-        - netcdf4
 
 about:
   home: https://github.com/observingClouds/xbitinfo
