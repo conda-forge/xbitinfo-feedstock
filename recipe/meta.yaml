@@ -1,4 +1,4 @@
-{% set name = "xbitinfo" %}
+{% set name = "xbitinfo-outputs" %}
 {% set version = "0.0.4.dev1" %}
 {% set commit = "c917b4304e26a8cc69a9eabd2cc128287f8e7cd4" %}
 
@@ -20,7 +20,7 @@ test:
     - netcdf4
 
 outputs:
-  - name: xbitinfo
+  - name: xbitinfo-python
     script: build_base.sh
     requirements:
       host:
@@ -49,12 +49,12 @@ outputs:
       requires:
         - pip
 
-  - name: xbitinfo-julia
+  - name: xbitinfo
     build:
       noarch: generic
     requirements:
       run:
-        - {{ pin_subpackage('xbitinfo', max_pin="x.x.x") }}
+        - {{ pin_subpackage('xbitinfo-python', max_pin="x.x.x") }}
         - pyjulia >=0.5.7
         - julia >=1.6.0,<1.8.0
 
