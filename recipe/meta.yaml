@@ -24,6 +24,7 @@ outputs:
     build:
       noarch: python
     script: build_base.sh
+    requirements:
       host:
         - python >=3.9
         - pip
