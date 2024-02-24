@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/observingClouds/xbitinfo/archive/{{ commit }}.tar.gz
-  sha256: aaf152bd9b7a0472f688799b36699225ed093509f3b5afccefc871b62f02eb3b
+  sha256: 9f758a0e6a3b7ec1b5efc887a40e76c2163ae0e086fdbb453a04fb11fa57741c
 
 build:
   number: 0
