@@ -1,6 +1,6 @@
 {% set name = "xbitinfo-outputs" %}
-{% set version = "0.0.4.dev1" %}
-{% set commit = "c917b4304e26a8cc69a9eabd2cc128287f8e7cd4" %}
+{% set version = "0.0.4.dev2" %}
+{% set commit = "6fd035bd2f0129b6169432e43420e7ed511b91d6" %}
 
 package:
   name: {{ name|lower }}
@@ -8,10 +8,10 @@ package:
 
 source:
   url: https://github.com/observingClouds/xbitinfo/archive/{{ commit }}.tar.gz
-  sha256: aaf152bd9b7a0472f688799b36699225ed093509f3b5afccefc871b62f02eb3b
+  sha256: 9f758a0e6a3b7ec1b5efc887a40e76c2163ae0e086fdbb453a04fb11fa57741c
 
 build:
-  number: 1
+  number: 0
   noarch: python
 
 test:
@@ -20,6 +20,30 @@ test:
     - netcdf4
 
 outputs:
+  - name: xbitinfo-python-base
+    build:
+      noarch: python
+    script: build_base.sh
+    requirements:
+      host:
+        - python >=3.9
+        - pip
+        - setuptools >=30.3.0
+        - setuptools-scm
+      run:
+        - python >=3.9
+        - dask
+        - numcodecs >=0.10.0
+        - tqdm
+        - xarray
+    test:
+      imports:
+        - xbitinfo
+      commands:
+        - pip check
+      requires:
+        - pip
+
   - name: xbitinfo-python
     build:
       noarch: python
