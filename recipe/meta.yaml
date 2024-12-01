@@ -11,13 +11,14 @@ source:
   sha256: aaf152bd9b7a0472f688799b36699225ed093509f3b5afccefc871b62f02eb3b
 
 build:
-  number: 1
+  number: 2
   noarch: python
 
 test:
   requires:
     - pooch
     - netcdf4
+    - python {{ python_min }}
 
 outputs:
   - name: xbitinfo-python
@@ -26,12 +27,12 @@ outputs:
     script: build_base.sh
     requirements:
       host:
-        - python >=3.9
+        - python {{ python_min }}
         - pip
         - setuptools >=30.3.0
         - setuptools-scm
       run:
-        - python >=3.9
+        - python >={{ python_min }}
         - xarray
         - tqdm
         - numcodecs >=0.10.0
