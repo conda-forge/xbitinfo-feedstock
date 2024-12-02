@@ -47,8 +47,11 @@ outputs:
     test:
       imports:
         - xbitinfo
-      commands:
-        - pip check
+      # commands:
+        # remove pip-check b/c this old version of prefect has bad metadata.
+        # WARNING: Error parsing dependencies of prefect: Expected matching RIGHT_PARENTHESIS for LEFT_PARENTHESIS, after version specifier
+        # kubernetes (>=9.0.0a1.0) ; extra == 'all_extras'
+        # - pip check
       requires:
         - pip
 
