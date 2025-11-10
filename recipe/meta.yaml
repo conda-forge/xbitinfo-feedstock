@@ -1,17 +1,17 @@
+{% set python_min = "3.11" %}
 {% set name = "xbitinfo-outputs" %}
-{% set version = "0.0.4.dev1" %}
-{% set commit = "c917b4304e26a8cc69a9eabd2cc128287f8e7cd4" %}
+{% set version = "0.0.5" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/observingClouds/xbitinfo/archive/{{ commit }}.tar.gz
-  sha256: aaf152bd9b7a0472f688799b36699225ed093509f3b5afccefc871b62f02eb3b
+  url: https://github.com/observingClouds/xbitinfo/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 5f0966bb037d3fff5566833f92fd3190c3e52aba003799919755d340740860ab
 
 build:
-  number: 2
+  number: 0
   noarch: python
 
 test:
@@ -29,30 +29,28 @@ outputs:
       host:
         - python {{ python_min }}
         - pip
-        - setuptools >=30.3.0
-        - setuptools-scm
+        - pdm-backend
       run:
-        - python >={{ python_min }}
-        - xarray
-        - tqdm
-        - numcodecs >=0.10.0
-        # extras::viz
-        - matplotlib-base
+        - python >={{ python_min }},<3.14
         - cmcrameri
-        # extras::prefect
-        - prefect >=1.0.0,<2.0
+        - dask-core
+        - matplotlib-base >=3.9.0
+        - numcodecs >=0.10.0
+        - prefect >=3.3.0
+        - tqdm
+        - xarray
         # io
         - netcdf4
         - zarr
+        
+      
     test:
       imports:
         - xbitinfo
-      # commands:
-        # remove pip-check b/c this old version of prefect has bad metadata.
-        # WARNING: Error parsing dependencies of prefect: Expected matching RIGHT_PARENTHESIS for LEFT_PARENTHESIS, after version specifier
-        # kubernetes (>=9.0.0a1.0) ; extra == 'all_extras'
-        # - pip check
+      commands:
+        - pip check
       requires:
+        - python {{ python_min }}
         - pip
 
   - name: xbitinfo
