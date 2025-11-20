@@ -1,6 +1,6 @@
-{% set python_min = "3.11" %}
+{% set python_min = "3.10" %}
 {% set name = "xbitinfo-outputs" %}
-{% set version = "0.0.5" %}
+{% set version = "0.0.6" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/observingClouds/xbitinfo/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 5f0966bb037d3fff5566833f92fd3190c3e52aba003799919755d340740860ab
+  sha256: aefb0dd0384b367f7922aa0f5b11c88d7a0c0c4493886c4c254f97789a0aa138
 
 build:
   number: 0
@@ -60,7 +60,7 @@ outputs:
       run:
         - {{ pin_subpackage('xbitinfo-python', max_pin="x.x.x") }}
         - pyjulia >=0.5.7
-        - julia >=1.6.0,<1.8.0
+        - julia >=1.6.0
 
 about:
   home: https://github.com/observingClouds/xbitinfo
