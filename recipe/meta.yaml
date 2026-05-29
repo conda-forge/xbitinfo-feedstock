@@ -1,6 +1,6 @@
 {% set python_min = "3.10" %}
 {% set name = "xbitinfo-outputs" %}
-{% set version = "0.0.6" %}
+{% set version = "0.0.7" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://github.com/observingClouds/xbitinfo/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: aefb0dd0384b367f7922aa0f5b11c88d7a0c0c4493886c4c254f97789a0aa138
+  sha256: aa0bf0e093b03d2373a4f9b2a3524eb916aa8cccd1b07199cabad45903ace83b
 
 build:
   number: 0
@@ -32,18 +32,14 @@ outputs:
         - pdm-backend
       run:
         - python >={{ python_min }},<3.14
-        - cmcrameri
         - dask-core
-        - matplotlib-base >=3.9.0
-        - numcodecs >=0.10.0
-        - prefect >=3.3.0
-        - tqdm
+        - numpy <2.4.0
         - xarray
-        # io
-        - netcdf4
+        - tqdm
+        - numcodecs >=0.10.0,<0.16.4
+        - matplotlib-base >=3.9.0
         - zarr
-        
-      
+
     test:
       imports:
         - xbitinfo
@@ -52,6 +48,16 @@ outputs:
       requires:
         - python {{ python_min }}
         - pip
+        # optional viz
+        - cmcrameri
+        # optional io
+        - netcdf4
+        # optional prefect
+        - prefect >=3.3.0
+        # optional example
+        - pooch
+        - jupyter >=1.1
+        - s3fs
 
   - name: xbitinfo
     build:
