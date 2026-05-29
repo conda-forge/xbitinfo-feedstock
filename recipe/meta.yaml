@@ -32,17 +32,13 @@ outputs:
         - pdm-backend
       run:
         - python >={{ python_min }},<3.14
-        - cmcrameri
         - dask-core
-        - matplotlib-base >=3.9.0
-        - numcodecs >=0.10.0
-        - prefect >=3.3.0
-        - tqdm
+        - numpy <2.4.0
         - xarray
-        # io
-        - netcdf4
+        - tqdm
+        - numcodecs >=0.10.0,<0.16.4
+        - matplotlib-base >=3.9.0
         - zarr
-
 
     test:
       imports:
@@ -52,6 +48,16 @@ outputs:
       requires:
         - python {{ python_min }}
         - pip
+        # optional viz
+        - cmcrameri
+        # optional io
+        - netcdf4
+        # optional prefect
+        - prefect >=3.3.0
+        # optional example
+        - pooch
+        - jupyter >=1.1
+        - s3fs
 
   - name: xbitinfo
     build:
